@@ -1,0 +1,38 @@
+{
+    "env": {
+        "browser": false,
+        "commonjs": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": [
+        // Базовый набор правил eslint
+        "eslint:recommended",
+        // Отключаем правила из базового набора
+        "plugin:@typescript-eslint/eslint-recommended",
+        // Базовые правила для TypeScript
+        "plugin:@typescript-eslint/recommended",
+        // Правила TS, требующие инфо о типах
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "tsconfig.json",
+        "tsconfigRootDir": "."
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "no-var": "error",
+        "no-alert": "error",
+        "prefer-const": "error",
+        "no-proto": "error",
+        "no-await-in-loop": "error",
+        "no-else-return": "error",
+        "object-shorthand": "error",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off"
+    }
+}

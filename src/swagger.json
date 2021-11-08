@@ -1,0 +1,152 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Swagger",
+    "version": "1.0.0",
+    "description": "Тут можно взаимодействовать с аккаунтом и токеном"
+  },
+  "host": "localhost:8000",
+  "tags": [
+    {
+      "name": "account",
+      "description": "Взаимодействие с аккаунтом"
+    },
+    {
+      "name": "token",
+      "description": "Взаимодействие с токеном"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/account": {
+      "get": {
+        "tags": ["/account"],
+        "description": "Getting account list",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Пользователь успешно создан",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["/account"],
+        "description": "Создание нового аккаунта",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "account",
+            "in": "body",
+            "description": "The name of the account",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Новый аккаунт создан"
+          },
+          "500": {
+            "description": "Не удалось создать аккаунт"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["/account"],
+        "description": "Удаление аккаунта, может удалять только админ",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "body",
+            "description": "ID аккаунта",
+            "schema": {
+              "$ref": "#/definitions/DeleteAccount"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Аккаунт успешно удален"
+          },
+          "500": {
+            "description": "Не удалось удалить аккаунт"
+          }
+        }
+      },
+      "put": {
+        "tags": ["/account"],
+        "description": "Обновление данных",
+        "responses": {
+          "200": {
+            "description": "Аккаунт успешно обновлен"
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountPayload",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateAccount"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Account": {
+      "required": [
+        "name",
+        "age",
+        "isAdmin"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "isAdmin": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DeleteAccount": {
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateAccount": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "updatedAccount": {
+          "type": "object",
+          "$ref": "#/definitions/Account"
+        }
+      }
+    }
+  }
+}
